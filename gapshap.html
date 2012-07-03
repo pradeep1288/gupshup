@@ -34,12 +34,19 @@
         </script>
     </head>
     <body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <h1> GapShap </h1>  
+            </div>
+        </div>
+    </div>
     <div class ="container-fluid">
         <div class = "row-fluid">
-            <div class = "span2"><div id ="msg"><ul id="feed"></ul></div></div>
-            <div class = "span10">
-                <textarea id = "text-input"></textarea>
-                <input type = "button" value = "send" id = "send-button"> 
+            <div class = "span4"><textarea id = "text-input"></textarea>
+                <input type = "button" class = "btn btn-primary" value = "send" id = "send-button"></div>
+            <div class = "span8">
+                 <div id ="msg"><ul id="feed"></ul></div>
             </div>
         </div>
     </div>
