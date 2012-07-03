@@ -31,6 +31,19 @@
                 $('#text-input').val("");  
             });
         });
+		
+		updateCharacterCount = function()
+		{
+			var message = $('#text-input').val();
+			var ct = 140 - message.length;
+			$('#buzz_msg_ct').html(ct);
+			if (ct < 10) {
+					$('#buzz_msg_ct').css('color', 'red');
+			} else {
+					$('#buzz_msg_ct').css('color', 'black');
+			}
+		}
+		
         </script>
     </head>
     <body>
@@ -43,8 +56,10 @@
     </div>
     <div class ="container-fluid">
         <div class = "row-fluid">
-            <div class = "span4"><textarea class ="input-xlarge" id = "text-input" rows="4"></textarea>
-                <input type = "button" class = "btn btn-primary" value = "send" id = "send-button"></div>
+            <div class = "span4">
+				<textarea class ="input-xlarge" id = "text-input" rows="4" onkeypress="updateCharacterCount()"></textarea>
+				<br/><span style="float:left;"><input type="button" class="btn btn-primary" value="send" id="send-button">&nbsp;&nbsp;<span id="buzz_msg_ct" style="color: black; ">140</span></span>
+			</div>
             <div class = "span8">
                  <div id ="msg"><ul id="feed"></ul></div>
             </div>
