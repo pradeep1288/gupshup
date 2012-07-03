@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
@@ -6,11 +7,23 @@
         </script>
         <script type="text/javascript" src="nowjs/now.js"></script>
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+		<style type="text/css">
+			#msg {
+				height: 265px; 
+				padding-left: 0px; 
+				overflow: auto; 
+				} 
+			.dotted-li{ 
+				padding-top: 10px; 
+				padding-bottom: 10px; 
+				border-bottom: 1px dotted #DDDDDD; list-style-type: none; 
+				}
+		</style>
         <script type="text/javascript">
             $(document).ready(function(){
                 now.name = prompt("Enter your nick: ", "");
                 now.receiveMessage = function(name, msg) {
-                    $("<div></div>").text(name + ":" + msg).appendTo("#msg");
+                   $('#msg #feed').append('<li class="dotted-li"><b>' + name + '</b>:' + msg + '</li>'); 	
                 };
             
             $('#send-button').click(function(){
@@ -23,10 +36,9 @@
     <body>
     <div class ="container-fluid">
         <div class = "row-fluid">
-            <div class = "span2"></div>
+            <div class = "span2"><div id ="msg"><ul id="feed"></ul></div></div>
             <div class = "span10">
-                <div id ="msg"></div>
-                <input type = "text" id = "text-input">
+                <textarea id = "text-input"></textarea>
                 <input type = "button" value = "send" id = "send-button"> 
             </div>
         </div>
