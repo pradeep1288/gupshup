@@ -5,10 +5,9 @@ var currentUsers = new Object();
 server = http.createServer(function (request, response) {
  
     console.log('request starting...');
-     
     var filePath = '.' + request.url;
     if (filePath == './')
-        filePath = './gapshap.html';
+        filePath = './gupshup.html';
          
     var extname = path.extname(filePath);
     var contentType = 'text/html';
