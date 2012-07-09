@@ -49,7 +49,7 @@ console.log('Server running at http://127.0.0.1:8000/');
  var everyone = nowjs.initialize(server);
 
 everyone.now.update = function(){
-    //update the current set of users who are online
+    //Update the current set of users who are online
     this.now.updateUsers(currentUsers);
 }
 
@@ -58,12 +58,13 @@ everyone.now.distributeMessage = function(msg){
 }
 
 nowjs.on('connect', function(){
-      currentUsers[this.now.name] = 1;
-      console.log(this.now.name + " joined");
+    //Update the current set of users when someone joins
+    currentUsers[this.now.name] = 1;
+    console.log(this.now.name + " joined");
 });
 nowjs.on('disconnect', function(){
-      var name = this.now.name;
-      delete currentUsers[name];
-      console.log(this.now.name + " left");
+    //Update the current set of users when someone leaves
+    delete currentUsers[this.now.name];
+    console.log(this.now.name + " left");
  });
 
