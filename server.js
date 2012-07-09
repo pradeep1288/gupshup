@@ -1,7 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
- 
+var currentUsers = new Object();
 server = http.createServer(function (request, response) {
  
     console.log('request starting...');
@@ -46,9 +46,25 @@ server.listen(8000);
  
 console.log('Server running at http://127.0.0.1:8125/');
 
+ var nowjs = require('now');
+ var everyone = nowjs.initialize(server);
 
-var everyone = require("now").initialize(server);
+everyone.now.update = function(){
+    //update the current set of users who are online
+    this.now.updateUsers(currentUsers);
+}
 
 everyone.now.distributeMessage = function(msg){
     everyone.now.receiveMessage(this.now.name, msg);
 }
+
+nowjs.on('connect', function(){
+      currentUsers[this.now.name] = 1;
+      console.log(this.now.name + " joined");
+});
+nowjs.on('disconnect', function(){
+      var name = this.now.name;
+      delete currentUsers[name];
+      console.log(this.now.name + " left");
+ });
+
