@@ -9,6 +9,7 @@ To get this running, you need to have the following installed
 * [node.js](http://nodejs.org/) 
 * [now](http://nowjs.com/)
 * [sqlite3](http://www.sqlite.org/)
+* [node-sqlite3](https://github.com/developmentseed/node-sqlite3)
 
 ## Start Using
 
