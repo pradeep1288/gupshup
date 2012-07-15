@@ -2,6 +2,11 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var currentUsers = new Object();
+
+//Maintain chatlogs in a database
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('chat.db');
+
 server = http.createServer(function (request, response) {
  
     console.log('request starting...');
@@ -55,16 +60,28 @@ everyone.now.update = function(){
 
 everyone.now.distributeMessage = function(msg){
     everyone.now.receiveMessage(this.now.name, msg);
+    //Insert the chat log to db
+    db.run("INSERT into chatlog VALUES($name, $log)",{$name:this.now.name,$log:msg});
+}
+
+//This function is called to retrieve the chat logs from database
+everyone.now.retrieveMessages = function() {
+        console.log("inside");
+        db.each("SELECT * from chatlog", function(err, row) {
+            everyone.now.receiveMessage(row.name, row.log);
+            console.log(row.name, row.log);
+    });
 }
 
 nowjs.on('connect', function(){
     //Update the current set of users when someone joins
     currentUsers[this.now.name] = 1;
     console.log(this.now.name + " joined");
+    everyone.now.retrieveMessages();
 });
+
 nowjs.on('disconnect', function(){
     //Update the current set of users when someone leaves
     delete currentUsers[this.now.name];
     console.log(this.now.name + " left");
  });
-
