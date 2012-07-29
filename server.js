@@ -1,57 +1,28 @@
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
+var express = require('express'),
+    http    = require('http'),
+    sqllite = require('sqlite3'),
+    nowjs   = require('now');
+
+var PORT = 8000;
+
 var currentUsers = new Object();
 
 //Maintain chatlogs in a database
-var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = sqllite.verbose();
 var db = new sqlite3.Database('chat.db');
 
-server = http.createServer(function (request, response) {
- 
-    console.log('request starting...');
-    var filePath = '.' + request.url;
-    if (filePath == './')
-        filePath = './gupshup.html';
-         
-    var extname = path.extname(filePath);
-    var contentType = 'text/html';
-    switch (extname) {
-        case '.js':
-            contentType = 'text/javascript';
-            break;
-        case '.css':
-            contentType = 'text/css';
-            break;
-    }
-     
-    path.exists(filePath, function(exists) {
-     
-        if (exists) {
-            fs.readFile(filePath, function(error, content) {
-                if (error) {
-                    response.writeHead(500);
-                    response.end();
-                }
-                else {
-                    response.writeHead(200, { 'Content-Type': contentType });
-                    response.end(content, 'utf-8');
-                }
-            });
-        }
-        else {
-            response.writeHead(404);
-            response.end();
-        }
-    });
-     
+var app = express.createServer();
+app.configure(function(){
+    app.use(express.bodyParser());
+    app.use(express.static(__dirname + '/public'));
 });
-server.listen(8000);
- 
-console.log('Server running at http://127.0.0.1:8000/');
 
- var nowjs = require('now');
- var everyone = nowjs.initialize(server);
+var server = http.createServer(app)
+server.listen(PORT);
+ 
+console.log('Server running at http://127.0.0.1:' + PORT);
+
+var everyone = nowjs.initialize(server);
 
 everyone.now.update = function(){
     //Update the current set of users who are online
