@@ -1,0 +1,18 @@
+{
+  "name" : "Gupshup",
+  "version" : "0.0.1",
+  "description" : "A realtime chat client using Nodejs",
+  "author": "Pradeep Nayak <pradeepnayak@facebook.com> https://twitter.com/prdpnayaka",
+  "contributors" : "Sriharsha Sistalam <sriharsha.sm@gmail.com> https://twitter.com/harry_sistalam",
+  "dependencies": 
+      {
+        "express": ">=2.3.x",
+        "sqlite3": ">=2.1.x",
+        "now": ">=0.8.x"
+      },
+  "repository" : {
+    "type": "git",
+    "url" : "https://github.com/pradeep1288/gupshup"
+  }
+}
+
