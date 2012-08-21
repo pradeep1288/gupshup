@@ -15,6 +15,7 @@ To get this running, you need to have the following installed
 
 * Download the gupshup chat app from [here](https://github.com/pradeep1288/gupshup/zipball/master)
 * Extract the zip contents to a directory
+* Install the dependencies by running npm install in the root directory
 * Navigate to the directory where you extracted the contents
 * Run `node server.js`
 * You have now started the chat server. Clients can join in via http://servers-ip-here:8000 :)
